@@ -11,10 +11,24 @@ class Bin
 
       this.bottomBody=Bodies.rectangle(this.x, this.y, this.dustbinWidth, this.wallThickness, {isStatic:true})
       World.add(world, this.bottomBody);
+
+      this.leftWallBody=Bodies.rectangle(this.x-this.dustbinWidth/2, this.y-this.dustbinHeight/2, this.wallThickness, this.dustbinHeight, {isStatic:true})
+    Matter.Body.setAngle(this.leftWallBody, this.angle);
+    World.add(world, this.leftWallBody)
+
+    this.rightWallBody=Bodies.rectangle(this.x+this.dustbinWidth/2, this.y-this.dustbinHeight/2, this.wallThickness, this.dustbinHeight, {isStatic:true})
+    Matter.Body.setAngle(this.rightWallBody, this.angle);
+    World.add(world, this.rightWallBody)
+    
+
+
     }
     display()
     {
       var posBottom=this.bottomBody.position;
+      var posLeft=this.leftWallBody.position;
+      var posRight=this.rightWallBody.position;
+      
       push()
 			translate(posBottom.x, posBottom.y);
 			rectMode(CENTER)
@@ -23,6 +37,31 @@ class Bin
 			angleMode(RADIANS)
 			fill("red")
 			rect(0,0,this.dustbinWidth, this.wallThickness);
+      pop()
+      
+      push()
+			translate(posLeft.x, posLeft.y);
+			rectMode(CENTER)
+			//strokeWeight(4);
+			angleMode(RADIANS)
+			fill(255)
+			stroke(255)
+      rotate(this.angle)
+      fill("red")
+			rect(0,0,this.wallThickness, this.dustbinHeight);
+      pop()
+      
+      push()
+			translate(posRight.x, posRight.y);
+			rectMode(CENTER)
+			//strokeWeight(4);
+			angleMode(RADIANS)
+			fill(255)
+			stroke(255)
+      rotate(this.angle)
+      fill("red")
+			rect(0,0,this.wallThickness, this.dustbinHeight);
 			pop()
+
     }
   };
